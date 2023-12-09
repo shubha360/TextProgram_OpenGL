@@ -3,9 +3,12 @@
 #include <SDL/SDL.h>
 #include <TTF/SDL_ttf.h>
 #include <GL/glew.h>
-#include <glm/glm.hpp>
 
 #include <string>
+#include <cstddef>
+
+#include "Vertex.h"
+#include "ShaderProgram.h"
 
 class TextProgram {
 public:
@@ -19,12 +22,26 @@ private:
 	std::string m_text;
 
 	SDL_Window* m_window = nullptr;
-
-	glm::ivec2 m_windowDimensions = glm::ivec2(1024, 768);
-
+	int m_windowWidth = 1024;
+	int m_windowHeight = 768;
 	bool m_sdlInitialized = false;
 
+	GLuint m_vaoID = 0;
+	GLuint m_vboID = 0;
+	Vertex m_vertices[6];
+	float m_textureTopLeftPosX = -0.50f;
+	float m_textureTopLeftPosY = 0.50f;
+	float m_textureWidth = 1.0f;
+	float m_textureHeight = 1.0f;
+
+	GLuint m_textureID = 0;
+
+	ShaderProgram m_shaderProgram;
+
 	void init();
+	void initShaders();
+	void initVertexArray();
+	void generateTexture();
 	void close();
 	void reportError(const std::string& error);
 };

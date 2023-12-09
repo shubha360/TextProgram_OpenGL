@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <fstream>
+#include <vector>
 #include <GL/glew.h>
 
 class ShaderProgram {
@@ -17,17 +19,19 @@ public:
     // add a vertext shader attribute
     void addAttribute(const std::string& attributeName);
 
+    GLint getUniformLocation(const std::string& uniformName);
+
     // use and unuse program
     void use();
     void unuse();
 private:
-    int _numAttributes;
+    int m_numAttributes;
 
-    GLuint _programId;
-    GLuint _vertexShaderId;
-    GLuint _fragmentShaderId;
+    GLuint m_programID;
+    GLuint m_vertexShaderId;
+    GLuint m_fragmentShaderId;
 
     // compile a single shader
-    void _compileShader(const std::string& filePath, GLuint id);
+    void compileShader(const std::string& filePath, GLuint id);
 };
 
